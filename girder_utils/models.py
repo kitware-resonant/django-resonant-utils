@@ -24,3 +24,14 @@ class SelectRelatedManager(Manager):
 
     def get_queryset(self) -> QuerySet:
         return super().get_queryset().select_related(*self.related_fields)
+
+
+class DeferredFieldsManager(Manager):
+    """A Manager which defers loading specified fields within fetched Models."""
+
+    def __init__(self, *deferred_fields):
+        self.deferred_fields = deferred_fields
+        super().__init__()
+
+    def get_queryset(self):
+        return super().get_queryset().defer(*self.deferred_fields)
