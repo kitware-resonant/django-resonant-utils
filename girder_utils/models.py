@@ -1,6 +1,25 @@
-from typing import List
+from typing import Any, List
 
+from django.core.exceptions import ValidationError
+from django.db import models
 from django.db.models import Manager, QuerySet
+
+
+def _validate_metadata(val) -> None:
+    if not isinstance(val, dict):
+        raise ValidationError('Must be a JSON Object.')
+
+
+class JSONObjectField(models.JSONField):  # type: ignore
+    """A field for storing JSON Objects."""
+
+    empty_values: List[Any] = [{}]
+
+    def __init__(self, *args, **kwargs):
+        kwargs['default'] = dict
+        kwargs['blank'] = True
+        super().__init__(*args, **kwargs)
+        self.validators.append(_validate_metadata)
 
 
 class SelectRelatedManager(Manager):
