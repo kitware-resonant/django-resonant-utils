@@ -1,6 +1,37 @@
-from typing import List
+from typing import Any, List
 
+from django.core.exceptions import ValidationError
+from django.db import models
 from django.db.models import Manager, QuerySet
+from django.utils.translation import gettext_lazy as _
+
+
+class JSONObjectField(models.JSONField):  # type: ignore
+    """
+    A field for storing JSON Objects.
+
+    Other JSON types are not allowed at the top level.
+    """
+
+    @staticmethod
+    def _validate_is_object(val) -> None:
+        """Validate that the value is a JSON Object (dict) at the top level."""
+        if not isinstance(val, dict):
+            raise ValidationError(_('Must be a JSON Object.'))
+
+    empty_values: List[Any] = [{}]
+    default_validators = [_validate_is_object]
+
+    def __init__(self, *args, **kwargs):
+        kwargs['default'] = dict
+        kwargs['blank'] = True
+        super().__init__(*args, **kwargs)
+
+    def deconstruct(self):
+        name, path, args, kwargs = super().deconstruct()
+        del kwargs['default']
+        del kwargs['blank']
+        return name, path, args, kwargs
 
 
 class SelectRelatedManager(Manager):
