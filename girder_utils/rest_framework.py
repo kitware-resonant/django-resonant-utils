@@ -18,10 +18,10 @@ class BoundedLimitOffsetPagination(LimitOffsetPagination):
        circumvent the intent of pagination by simply providing a high enough limit.
 
     The default limit will be the value of DRF's normal PAGE_SIZE setting, or
-    100 if that is not set or falsy. The upper bound on the limit is 1000.
+    the max limit if that is not set or falsy. The upper bound on the limit is 1000.
     """
 
     max_limit = 1000
 
     def get_limit(self, request) -> int:
-        return super().get_limit(request) or 100
+        return super().get_limit(request) or self.max_limit
