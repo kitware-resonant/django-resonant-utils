@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
 readme_file = Path(__file__).parent / 'README.md'
 with readme_file.open() as f:
@@ -8,7 +8,6 @@ with readme_file.open() as f:
 
 setup(
     name='django-girder-utils',
-    version='0.6.0',
     description='Django utilities for data management applications',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -34,6 +33,5 @@ setup(
         'Programming Language :: Python',
     ],
     python_requires='>=3.8',
-    packages=find_packages(),
     install_requires=['django>=3'],
 )
