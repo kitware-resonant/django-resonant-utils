@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 
-class ReadonlyTabularInline(admin.TabularInline):
+class ReadonlyInlineMixin:
     can_delete = False
     show_change_link = True
     view_on_site = False
@@ -12,3 +12,7 @@ class ReadonlyTabularInline(admin.TabularInline):
 
     def has_add_permission(self, request, obj=None):
         return False
+
+
+class ReadonlyTabularInline(ReadonlyInlineMixin, admin.TabularInline):
+    pass
