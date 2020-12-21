@@ -8,6 +8,9 @@ class ReadonlyInlineMixin:
     extra = 0
 
     def get_readonly_fields(self, request, obj=None):
+        if self.fields is None:
+            return []
+        # Make all fields readonly
         return self.fields
 
     def has_add_permission(self, request, obj=None):
