@@ -22,7 +22,7 @@ def expiring_url(storage: Storage, name: str, expiration: timedelta) -> str:
     """
     # Each storage backend uses a slightly different API for URL expiration
     if isinstance(storage, S3Boto3Storage):
-        return storage.url(name, expire=expiration.total_seconds())
+        return storage.url(name, expire=int(expiration.total_seconds()))
     elif isinstance(storage, MinioStorage):
         return storage.url(name, max_age=expiration)
     else:
