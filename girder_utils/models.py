@@ -6,7 +6,7 @@ from django.db.models import Manager, QuerySet
 from django.utils.translation import gettext_lazy as _
 
 
-class JSONObjectField(models.JSONField):  # type: ignore
+class JSONObjectField(models.JSONField):  # type: ignore[name-defined]
     """
     A field for storing JSON Objects.
 
@@ -20,7 +20,12 @@ class JSONObjectField(models.JSONField):  # type: ignore
             raise ValidationError(_('Must be a JSON Object.'))
 
     empty_values: List[Any] = [{}]
-    default_validators = [_validate_is_object]
+
+    # At this point in the class definition lifecycle,
+    # staticmethods aren't resolvable directly, so use "__func__"
+    # https://stackoverflow.com/questions/41921255/staticmethod-object-is-not-callable
+    # Additionally, MyPy has a bug here: https://github.com/python/mypy/issues/3482
+    default_validators = [_validate_is_object.__func__]  # type: ignore[attr-defined]
 
     def __init__(self, *args, **kwargs):
         kwargs['default'] = dict
