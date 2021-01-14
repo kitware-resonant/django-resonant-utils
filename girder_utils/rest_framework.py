@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.response import Response
 
@@ -32,26 +30,19 @@ class BoundedLimitOffsetPagination(LimitOffsetPagination):
         return super().get_limit(request) or self.max_limit
 
     def get_paginated_response(self, data) -> Response:
-        headers = {}
-        next_url = self.get_next_link()
-        previous_url = self.get_previous_link()
-        links = []
+        response = super().get_paginated_response(data)
 
-        for url, label in [(previous_url, 'prev'), (next_url, 'next')]:
-            if url is not None:
-                links.append(f'<{url}>; rel="{label}"')
-
-        if links:
-            headers['Link'] = ', '.join(links)
-
-        return Response(
-            OrderedDict(
-                [
-                    ('count', self.count),
-                    ('next', next_url),
-                    ('previous', previous_url),
-                    ('results', data),
-                ]
-            ),
-            headers=headers,
+        # Add links, per https://tools.ietf.org/html/rfc8288
+        links = [
+            # (relation_type, target)
+            ('prev', self.get_previous_link()),
+            ('next', self.get_next_link()),
+        ]
+        # Always set a Link header, even if it's empty
+        response['Link'] = ', '.join(
+            f'<{target}>; rel="{relation_type}"'
+            for relation_type, target in links
+            if target is not None
         )
+
+        return response
