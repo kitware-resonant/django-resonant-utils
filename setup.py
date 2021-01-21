@@ -8,7 +8,7 @@ with readme_file.open() as f:
 
 setup(
     name='django-girder-utils',
-    description='Django utilities for data management applications',
+    description='Django utilities for data management applications.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='Apache 2.0',
@@ -17,7 +17,7 @@ setup(
         'Bug Reports': 'https://github.com/girder/django-girder-utils/issues',
         'Source': 'https://github.com/girder/django-girder-utils',
     },
-    author='Kitware, Inc',
+    author='Kitware, Inc.',
     author_email='kitware@kitware.com',
     keywords='django girder',
     classifiers=[
