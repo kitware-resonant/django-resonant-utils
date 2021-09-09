@@ -14,7 +14,8 @@ def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> Optional[_VT_co]:
     """
     Retrieve `value[arg]` from a mapping `value`, where `arg` can be a variable.
 
-    This will return `None` if `arg` is not found.
+    This will return `None` if `arg` is not found. It may be useful to chain the `default_if_none`
+    filter after this one.
 
     Sample usage::
         {% load girder_utils %}
