@@ -12,6 +12,14 @@ _VT_co = TypeVar('_VT_co', covariant=True)
 @register.filter
 def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> Optional[_VT_co]:
     """
-    Retrieve value[arg] from a template, where arg can be a variable.
+    Retrieve `value[arg]` from a mapping `value`, where `arg` can be a variable.
+
+    This will return `None` if `arg` is not found.
+
+    Sample usage::
+        {% load girder_utils %}
+        {% for key in some_keys %}
+            {{ my_dict|getitem:key }}
+        {% endfor %}
     """
     return value.get(arg, None)
