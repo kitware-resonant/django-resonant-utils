@@ -1,4 +1,5 @@
-from typing import Mapping, Optional, TypeVar
+import json
+from typing import Any, Mapping, Optional, TypeVar
 
 from django import template
 
@@ -24,3 +25,21 @@ def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> Optional[_VT_co]:
         {% endfor %}
     """
     return value.get(arg, None)
+
+
+@register.filter
+def pretty_json(value: Any, indent: Optional[int] = None) -> str:
+    """
+    Convert `value` to a JSON-formatted string.
+
+    Optionally, `indent` can be specified as an positive integer number of spaces to pretty-print
+    indentation with; `None` (the default) will disable pretty-printing.
+
+    The output should typically be embedded within HTML an `<pre>` element.
+    If `indent` is specified, the output will likely contain newlines, which `<pre>` will render.
+
+    Sample usage::
+    {% load girder_utils %}
+    <pre>{{ my_object|pretty_json:4 }}</pre>
+    """
+    return json.dumps(value, indent=indent)
