@@ -35,7 +35,7 @@ setup(
         'Programming Language :: Python',
     ],
     python_requires='>=3.8',
-    install_requires=['django>=3'],
+    install_requires=['django>=3.2'],
     packages=find_packages(),
     # Package data is required for the py.typed file
     include_package_data=True,
