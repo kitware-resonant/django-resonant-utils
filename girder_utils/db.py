@@ -1,12 +1,15 @@
-from typing import Any, List
+import json
+from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar
 
 from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models import Manager, QuerySet
+from django.db.models import Manager, Model, QuerySet
 from django.utils.translation import gettext_lazy as _
 
+_T = TypeVar('_T', bound=Model, covariant=True)
 
-class JSONObjectField(models.JSONField):  # type: ignore[name-defined]
+
+class JSONObjectField(models.JSONField):
     """
     A field for storing JSON Objects.
 
@@ -14,7 +17,7 @@ class JSONObjectField(models.JSONField):  # type: ignore[name-defined]
     """
 
     @staticmethod
-    def _validate_is_object(val) -> None:
+    def _validate_is_object(val: Any) -> None:
         """Validate that the value is a JSON Object (dict) at the top level."""
         if not isinstance(val, dict):
             raise ValidationError(_('Must be a JSON Object.'))
@@ -27,19 +30,28 @@ class JSONObjectField(models.JSONField):  # type: ignore[name-defined]
     # Additionally, MyPy has a bug here: https://github.com/python/mypy/issues/3482
     default_validators = [_validate_is_object.__func__]  # type: ignore[attr-defined]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(
+        self,
+        verbose_name: Optional[str] = None,
+        name: Optional[str] = None,
+        encoder: Optional[Type[json.JSONEncoder]] = None,
+        decoder: Optional[Type[json.JSONDecoder]] = None,
+        **kwargs: Any,
+    ) -> None:
         kwargs['default'] = dict
         kwargs['blank'] = True
-        super().__init__(*args, **kwargs)
+        super().__init__(
+            verbose_name=verbose_name, name=name, encoder=encoder, decoder=decoder, **kwargs
+        )
 
-    def deconstruct(self):
+    def deconstruct(self) -> Tuple[str, str, List[Any], Dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
         del kwargs['default']
         del kwargs['blank']
         return name, path, args, kwargs
 
 
-class SelectRelatedManager(Manager):
+class SelectRelatedManager(Manager[_T]):
     """
     A Manager which always follows specified foreign-key relationships.
 
@@ -58,16 +70,16 @@ class SelectRelatedManager(Manager):
         self.related_fields: List[str] = list(related_fields)
         super().__init__()
 
-    def get_queryset(self) -> QuerySet:
+    def get_queryset(self) -> QuerySet[_T]:
         return super().get_queryset().select_related(*self.related_fields)
 
 
-class DeferredFieldsManager(Manager):
+class DeferredFieldsManager(Manager[_T]):
     """A Manager which defers loading specified fields within fetched Models."""
 
-    def __init__(self, *deferred_fields):
+    def __init__(self, *deferred_fields: str) -> None:
         self.deferred_fields = deferred_fields
         super().__init__()
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[_T]:
         return super().get_queryset().defer(*self.deferred_fields)

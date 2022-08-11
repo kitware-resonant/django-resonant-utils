@@ -6,12 +6,12 @@ try:
     from storages.backends.s3boto3 import S3Boto3Storage
 except ImportError:
     # This should only be used for type interrogation, never instantiation
-    S3Boto3Storage = type('FakeS3Boto3Storage', (), {})
+    S3Boto3Storage = type('FakeS3Boto3Storage', (), {})  # type: ignore
 try:
     from minio_storage.storage import MinioStorage
 except ImportError:
     # This should only be used for type interrogation, never instantiation
-    MinioStorage = type('FakeMinioStorage', (), {})
+    MinioStorage = type('FakeMinioStorage', (), {})  # type: ignore
 
 
 def expiring_url(storage: Storage, name: str, expiration: timedelta) -> str:
