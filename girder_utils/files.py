@@ -25,7 +25,7 @@ def field_file_to_local_path(field_file: FieldFile) -> Generator[Path, None, Non
     garbage collected.
     """
     with field_file.open('rb'):
-        file_obj: File = field_file.file
+        file_obj: File[bytes] = field_file.file
 
         if type(file_obj) is File:
             # When file_obj is an actual File, (typically backed by FileSystemStorage),

@@ -1,4 +1,7 @@
+from typing import Any
+
 from rest_framework.pagination import LimitOffsetPagination
+from rest_framework.request import Request
 from rest_framework.response import Response
 
 
@@ -26,10 +29,10 @@ class BoundedLimitOffsetPagination(LimitOffsetPagination):
 
     max_limit = 1000
 
-    def get_limit(self, request) -> int:
+    def get_limit(self, request: Request) -> int:
         return super().get_limit(request) or self.max_limit
 
-    def get_paginated_response(self, data) -> Response:
+    def get_paginated_response(self, data: Any) -> Response:
         response = super().get_paginated_response(data)
 
         # Add links, per https://tools.ietf.org/html/rfc8288

@@ -39,6 +39,12 @@ setup(
     ],
     python_requires='>=3.8',
     install_requires=['django>=3.2'],
+    extras_require={
+        'allauth': ['django-allauth'],
+        'rest_framework': ['djangorestframework'],
+        'boto3_storage': ['django-storages[boto3]'],
+        'minio_storage': ['django-minio-storage'],
+    },
     packages=find_packages(),
     # Package data is required for the py.typed file
     include_package_data=True,

@@ -1,0 +1,3 @@
+from django.core.files.storage import Storage
+
+class BaseStorage(Storage): ...
