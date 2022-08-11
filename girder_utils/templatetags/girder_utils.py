@@ -1,3 +1,4 @@
+from datetime import datetime
 import json
 from typing import Any, Mapping, Optional, TypeVar
 
@@ -43,3 +44,17 @@ def pretty_json(value: Any, indent: Optional[int] = None) -> str:
     <pre>{{ my_object|pretty_json:4 }}</pre>
     """
     return json.dumps(value, indent=indent)
+
+
+@register.inclusion_tag('localtime.html')
+def localtime(value: datetime) -> dict:
+    """
+    Include the datetime as a local-time formatted value.
+
+    Sample usage::
+    {% load girder_utils %}
+    <pre>{% localtime object.creation_time %}</pre>
+    """
+    return {
+        'dt': value,
+    }
