@@ -1,5 +1,5 @@
 import itertools
-from typing import TYPE_CHECKING, Callable, Optional, Sequence, TypeVar, Union
+from typing import TYPE_CHECKING, Callable, Generic, Optional, Sequence, TypeVar, Union
 
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
@@ -9,18 +9,25 @@ from django.http import HttpRequest
 _ChildModelT = TypeVar('_ChildModelT', bound=Model)
 _ParentModelT = TypeVar('_ParentModelT', bound=Model)
 
+# https://mypy.readthedocs.io/en/latest/runtime_troubles.html#using-classes-that-are-generic-in-stubs-but-not-at-runtime
 if TYPE_CHECKING:
 
-    class InlineMixinBase(InlineModelAdmin[_ChildModelT, _ParentModelT]):
+    class _InlineMixin(InlineModelAdmin[_ChildModelT, _ParentModelT]):
+        pass
+
+    class _TabularInline(admin.TabularInline[_ChildModelT, _ParentModelT]):
         pass
 
 else:
 
-    class InlineMixinBase:
+    class _InlineMixin(Generic[_ChildModelT, _ParentModelT]):
+        pass
+
+    class _TabularInline(Generic[_ChildModelT, _ParentModelT], admin.TabularInline):
         pass
 
 
-class ReadonlyInlineMixin(InlineMixinBase[_ChildModelT, _ParentModelT]):
+class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
     can_delete = False
     show_change_link = True
     view_on_site: Union[bool, Callable[[_ChildModelT], str]] = False
@@ -46,6 +53,6 @@ class ReadonlyInlineMixin(InlineMixinBase[_ChildModelT, _ParentModelT]):
 
 class ReadonlyTabularInline(
     ReadonlyInlineMixin[_ChildModelT, _ParentModelT],
-    admin.TabularInline[_ChildModelT, _ParentModelT],
+    _TabularInline[_ChildModelT, _ParentModelT],
 ):
     pass
