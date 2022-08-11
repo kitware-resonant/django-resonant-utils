@@ -23,7 +23,10 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
-        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 3.2',
+        'Framework :: Django :: 4',
+        'Framework :: Django :: 4.0',
+        'Framework :: Django :: 4.1',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
