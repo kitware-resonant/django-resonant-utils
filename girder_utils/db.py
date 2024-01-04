@@ -1,3 +1,4 @@
+from collections.abc import Sequence
 import json
 from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar
 
@@ -44,7 +45,7 @@ class JSONObjectField(models.JSONField):
             verbose_name=verbose_name, name=name, encoder=encoder, decoder=decoder, **kwargs
         )
 
-    def deconstruct(self) -> Tuple[str, str, List[Any], Dict[str, Any]]:
+    def deconstruct(self) -> Tuple[str, str, Sequence[Any], Dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
         del kwargs['default']
         del kwargs['blank']
