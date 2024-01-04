@@ -5,7 +5,7 @@ from storages.base import BaseStorage
 from storages.compress import CompressStorageMixin
 
 @deconstructible
-class S3Boto3Storage(CompressStorageMixin, BaseStorage):
+class S3Storage(CompressStorageMixin, BaseStorage):
     def url(  # type: ignore[override]
         self,
         name: str,
