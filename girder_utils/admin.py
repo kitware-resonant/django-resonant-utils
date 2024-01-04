@@ -1,5 +1,6 @@
+from collections.abc import Callable
 import itertools
-from typing import TYPE_CHECKING, Callable, Generic, List, Optional, TypeVar, Union
+from typing import TYPE_CHECKING, Generic, TypeVar
 
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
@@ -30,12 +31,12 @@ else:
 class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
     can_delete = False
     show_change_link = True
-    view_on_site: Union[bool, Callable[[_ChildModelT], str]] = False
+    view_on_site: bool | Callable[[_ChildModelT], str] = False
     extra = 0
 
     def get_readonly_fields(
-        self, request: HttpRequest, obj: Optional[_ChildModelT] = None
-    ) -> List[str]:
+        self, request: HttpRequest, obj: _ChildModelT | None = None
+    ) -> list[str]:
         if self.fields is None:
             return []
         # Make all fields readonly
@@ -47,7 +48,7 @@ class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
             )
         )
 
-    def has_add_permission(self, request: HttpRequest, obj: Optional[_ParentModelT] = None) -> bool:
+    def has_add_permission(self, request: HttpRequest, obj: _ParentModelT | None = None) -> bool:
         return False
 
 
