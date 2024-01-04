@@ -45,11 +45,11 @@ allauth = [
 rest_framework = [
   "djangorestframework",
 ]
-boto3_storage = [
-  "django-storages[boto3]",
-]
 minio_storage = [
   "django-minio-storage",
+]
+s3_storage = [
+  "django-storages[s3]>=1.14",
 ]
 
 [tool.hatch.build]
