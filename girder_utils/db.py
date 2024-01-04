@@ -1,6 +1,6 @@
 from collections.abc import Sequence
 import json
-from typing import Any, Dict, List, Optional, Tuple, Type, TypeVar
+from typing import Any, TypeVar
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -23,7 +23,7 @@ class JSONObjectField(models.JSONField):
         if not isinstance(val, dict):
             raise ValidationError(_('Must be a JSON Object.'))
 
-    empty_values: List[Any] = [{}]
+    empty_values: list[Any] = [{}]
 
     # At this point in the class definition lifecycle,
     # staticmethods aren't resolvable directly, so use "__func__"
@@ -33,10 +33,10 @@ class JSONObjectField(models.JSONField):
 
     def __init__(
         self,
-        verbose_name: Optional[str] = None,
-        name: Optional[str] = None,
-        encoder: Optional[Type[json.JSONEncoder]] = None,
-        decoder: Optional[Type[json.JSONDecoder]] = None,
+        verbose_name: str | None = None,
+        name: str | None = None,
+        encoder: type[json.JSONEncoder] | None = None,
+        decoder: type[json.JSONDecoder] | None = None,
         **kwargs: Any,
     ) -> None:
         kwargs['default'] = dict
@@ -45,7 +45,7 @@ class JSONObjectField(models.JSONField):
             verbose_name=verbose_name, name=name, encoder=encoder, decoder=decoder, **kwargs
         )
 
-    def deconstruct(self) -> Tuple[str, str, Sequence[Any], Dict[str, Any]]:
+    def deconstruct(self) -> tuple[str, str, Sequence[Any], dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
         del kwargs['default']
         del kwargs['blank']
@@ -68,7 +68,7 @@ class SelectRelatedManager(Manager[_T]):
     """
 
     def __init__(self, *related_fields: str) -> None:
-        self.related_fields: List[str] = list(related_fields)
+        self.related_fields: list[str] = list(related_fields)
         super().__init__()
 
     def get_queryset(self) -> QuerySet[_T]:

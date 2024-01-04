@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 import json
-from typing import Any, Mapping, Optional, TypeVar
+from typing import Any, TypeVar
 
 from django import template
 
@@ -11,7 +12,7 @@ _VT_co = TypeVar('_VT_co', covariant=True)
 
 
 @register.filter
-def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> Optional[_VT_co]:
+def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
     """
     Retrieve `value[arg]` from a mapping `value`, where `arg` can be a variable.
 
@@ -28,7 +29,7 @@ def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> Optional[_VT_co]:
 
 
 @register.filter
-def pretty_json(value: Any, indent: Optional[int] = None) -> str:
+def pretty_json(value: Any, indent: int | None = None) -> str:
     """
     Convert `value` to a JSON-formatted string.
 

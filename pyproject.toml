@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "django-girder-utils"
 description = "Django utilities for data management applications."
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 license = { text = "Apache 2.0" }
 maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
 keywords = [
@@ -26,8 +26,6 @@ classifiers = [
   "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -67,7 +65,7 @@ source = "vcs"
 [tool.black]
 line-length = 100
 skip-string-normalization = true
-target-version = ["py38"]
+target-version = ["py310"]
 exclude='\.eggs|\.git|\.mypy_cache|\.tox|\.venv|_build|buck-out|build|dist'
 
 [tool.isort]

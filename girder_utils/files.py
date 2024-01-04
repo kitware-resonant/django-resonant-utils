@@ -1,8 +1,8 @@
+from collections.abc import Generator
 from contextlib import contextmanager
 from pathlib import Path, PurePath
 import shutil
 import tempfile
-from typing import Generator
 
 from django.core.files import File
 from django.db.models.fields.files import FieldFile
