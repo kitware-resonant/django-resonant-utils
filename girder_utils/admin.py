@@ -1,5 +1,5 @@
 import itertools
-from typing import TYPE_CHECKING, Callable, Generic, Optional, Sequence, TypeVar, Union
+from typing import TYPE_CHECKING, Callable, Generic, List, Optional, TypeVar, Union
 
 from django.contrib import admin
 from django.contrib.admin.options import InlineModelAdmin
@@ -35,7 +35,7 @@ class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
 
     def get_readonly_fields(
         self, request: HttpRequest, obj: Optional[_ChildModelT] = None
-    ) -> Sequence[str]:
+    ) -> List[str]:
         if self.fields is None:
             return []
         # Make all fields readonly
