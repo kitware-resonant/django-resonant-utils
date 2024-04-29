@@ -20,7 +20,7 @@ def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
     filter after this one.
 
     Sample usage::
-        {% load girder_utils %}
+        {% load resonant_utils %}
         {% for key in some_keys %}
             {{ my_dict|getitem:key }}
         {% endfor %}
@@ -40,7 +40,7 @@ def pretty_json(value: Any, indent: int | None = None) -> str:
     If `indent` is specified, the output will likely contain newlines, which `<pre>` will render.
 
     Sample usage::
-    {% load girder_utils %}
+    {% load resonant_utils %}
     <pre>{{ my_object|pretty_json:4 }}</pre>
     """
     return json.dumps(value, indent=indent)
