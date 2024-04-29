@@ -3,7 +3,7 @@ requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
-name = "django-girder-utils"
+name = "django-resonant-utils"
 description = "Django utilities for data management applications."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -11,7 +11,7 @@ license = { text = "Apache 2.0" }
 maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
 keywords = [
   "django",
-  "girder",
+  "resonant",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -35,8 +35,8 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Repository = "https://github.com/girder/django-girder-utils"
-"Bug Reports" = "https://github.com/girder/django-girder-utils/issues"
+Repository = "https://github.com/kitware-resonant/django-resonant-utils"
+"Bug Reports" = "https://github.com/kitware-resonant/django-resonant-utils/issues"
 
 [project.optional-dependencies]
 allauth = [
@@ -54,7 +54,7 @@ s3_storage = [
 
 [tool.hatch.build]
 only-include = [
-  "girder_utils",
+  "resonant_utils",
 ]
 
 [tool.hatch.version]

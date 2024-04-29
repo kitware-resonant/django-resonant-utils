@@ -11,7 +11,7 @@ class FullNameSignupForm(forms.Form):
     A Django-Allauth signup form which prompts for a user's first and last name.
 
     To use this, set the setting:
-    ACCOUNT_SIGNUP_FORM_CLASS = 'girder_utils.allauth.FullNameSignupForm'
+    ACCOUNT_SIGNUP_FORM_CLASS = 'resonant_utils.allauth.FullNameSignupForm'
     """
 
     first_name = forms.CharField(
