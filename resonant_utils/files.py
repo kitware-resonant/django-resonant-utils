@@ -24,7 +24,7 @@ def field_file_to_local_path(field_file: FieldFile) -> Generator[Path, None, Non
     When this context manager exists, the filesystem content and path will be
     garbage collected.
     """
-    with field_file.open('rb'):
+    with field_file.open("rb"):
         file_obj: File[bytes] = field_file.file
 
         if type(file_obj) is File:
@@ -39,7 +39,7 @@ def field_file_to_local_path(field_file: FieldFile) -> Generator[Path, None, Non
             if field_file.name is None:
                 raise Exception('The FieldFile object "field_file" does not have a "name".')
             field_file_basename = PurePath(field_file.name).name
-            with tempfile.NamedTemporaryFile('wb', suffix=field_file_basename) as dest_stream:
+            with tempfile.NamedTemporaryFile("wb", suffix=field_file_basename) as dest_stream:
                 shutil.copyfileobj(file_obj, dest_stream)
                 dest_stream.flush()
 

@@ -38,11 +38,11 @@ class BoundedLimitOffsetPagination(LimitOffsetPagination):
         # Add links, per https://tools.ietf.org/html/rfc8288
         links = [
             # (relation_type, target)
-            ('prev', self.get_previous_link()),
-            ('next', self.get_next_link()),
+            ("prev", self.get_previous_link()),
+            ("next", self.get_next_link()),
         ]
         # Always set a Link header, even if it's empty
-        response['Link'] = ', '.join(
+        response["Link"] = ", ".join(
             f'<{target}>; rel="{relation_type}"'
             for relation_type, target in links
             if target is not None

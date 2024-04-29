@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import Manager, Model, QuerySet
 from django.utils.translation import gettext_lazy as _
 
-_T = TypeVar('_T', bound=Model, covariant=True)
+_T = TypeVar("_T", bound=Model, covariant=True)
 
 
 class JSONObjectField(models.JSONField):
@@ -21,7 +21,7 @@ class JSONObjectField(models.JSONField):
     def _validate_is_object(val: Any) -> None:
         """Validate that the value is a JSON Object (dict) at the top level."""
         if not isinstance(val, dict):
-            raise ValidationError(_('Must be a JSON Object.'))
+            raise ValidationError(_("Must be a JSON Object."))
 
     empty_values: list[Any] = [{}]
 
@@ -39,16 +39,16 @@ class JSONObjectField(models.JSONField):
         decoder: type[json.JSONDecoder] | None = None,
         **kwargs: Any,
     ) -> None:
-        kwargs['default'] = dict
-        kwargs['blank'] = True
+        kwargs["default"] = dict
+        kwargs["blank"] = True
         super().__init__(
             verbose_name=verbose_name, name=name, encoder=encoder, decoder=decoder, **kwargs
         )
 
     def deconstruct(self) -> tuple[str, str, Sequence[Any], dict[str, Any]]:
         name, path, args, kwargs = super().deconstruct()
-        del kwargs['default']
-        del kwargs['blank']
+        del kwargs["default"]
+        del kwargs["blank"]
         return name, path, args, kwargs
 
 
