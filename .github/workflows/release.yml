@@ -5,6 +5,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -14,14 +17,12 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Install tox
+      - name: Install Python build
         run: |
           pip install --upgrade pip
-          pip install tox
-      - name: Publish to PyPI
-        env:
-          TWINE_USERNAME: "__token__"
-          TWINE_PASSWORD: ${{ secrets.PYPI_TOKEN }}
-          TWINE_NON_INTERACTIVE: "true"
+          pip install build
+      - name: Build the Python distribution
         run: |
-          tox -e release
+          python -m build
+      - name: Publish the Python distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
