@@ -7,8 +7,8 @@ from django.contrib.admin.options import InlineModelAdmin
 from django.db.models import Model
 from django.http import HttpRequest
 
-_ChildModelT = TypeVar('_ChildModelT', bound=Model)
-_ParentModelT = TypeVar('_ParentModelT', bound=Model)
+_ChildModelT = TypeVar("_ChildModelT", bound=Model)
+_ParentModelT = TypeVar("_ParentModelT", bound=Model)
 
 # https://mypy.readthedocs.io/en/latest/runtime_troubles.html#using-classes-that-are-generic-in-stubs-but-not-at-runtime
 if TYPE_CHECKING:

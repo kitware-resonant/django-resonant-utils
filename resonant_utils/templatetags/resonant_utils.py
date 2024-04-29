@@ -7,8 +7,8 @@ from django import template
 register = template.Library()
 
 
-_KT = TypeVar('_KT')
-_VT_co = TypeVar('_VT_co', covariant=True)
+_KT = TypeVar("_KT")
+_VT_co = TypeVar("_VT_co", covariant=True)
 
 
 @register.filter
