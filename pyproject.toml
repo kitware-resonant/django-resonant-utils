@@ -13,6 +13,7 @@ maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
 keywords = [
   "django",
   "resonant",
+  "kitware-resonant",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
