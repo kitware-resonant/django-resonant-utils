@@ -7,7 +7,8 @@ name = "django-resonant-utils"
 description = "Django utilities for data management applications."
 readme = "README.md"
 requires-python = ">=3.10"
-license = { text = "Apache 2.0" }
+license = "Apache-2.0"
+license-files = ["LICENSE"]
 maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
 keywords = [
   "django",
@@ -21,7 +22,6 @@ classifiers = [
   "Framework :: Django :: 5.0",
   "Framework :: Django",
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: Apache Software License",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
