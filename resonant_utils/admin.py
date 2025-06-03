@@ -1,17 +1,20 @@
-from collections.abc import Callable
+from __future__ import annotations
+
 import itertools
 from typing import TYPE_CHECKING, Generic, TypeVar
 
 from django.contrib import admin
-from django.contrib.admin.options import InlineModelAdmin
 from django.db.models import Model
-from django.http import HttpRequest
 
 _ChildModelT = TypeVar("_ChildModelT", bound=Model)
 _ParentModelT = TypeVar("_ParentModelT", bound=Model)
 
 # https://mypy.readthedocs.io/en/latest/runtime_troubles.html#using-classes-that-are-generic-in-stubs-but-not-at-runtime
 if TYPE_CHECKING:
+    from collections.abc import Callable
+
+    from django.contrib.admin.options import InlineModelAdmin
+    from django.http import HttpRequest
 
     class _InlineMixin(InlineModelAdmin[_ChildModelT, _ParentModelT]):
         pass
