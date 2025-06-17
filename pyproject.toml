@@ -53,6 +53,29 @@ s3_storage = [
   "django-storages[s3]>=1.14",
 ]
 
+[dependency-groups]
+dev = [
+  "tox",
+  "tox-uv",
+]
+lint = [
+  "flake8",
+  "flake8-black",
+  "flake8-bugbear",
+  "flake8-docstrings",
+  "flake8-isort",
+  "pep8-naming",
+]
+format = [
+  "black",
+  "isort",
+]
+type = [
+  "mypy",
+  "django-stubs[compatible-mypy]",
+  "djangorestframework-stubs",
+]
+
 [tool.hatch.build]
 only-include = [
   "resonant_utils",
