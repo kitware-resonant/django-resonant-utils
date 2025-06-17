@@ -100,8 +100,12 @@ combine_as_imports = true
 files = [
   "resonant_utils",
 ]
+check_untyped_defs = true
 show_error_codes = true
 strict = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
 mypy_path = [
   "$MYPY_CONFIG_FILE_DIR/stubs",
 ]
