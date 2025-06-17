@@ -53,6 +53,29 @@ s3_storage = [
   "django-storages[s3]>=1.14",
 ]
 
+[dependency-groups]
+dev = [
+  "tox",
+  "tox-uv",
+]
+lint = [
+  "flake8",
+  "flake8-black",
+  "flake8-bugbear",
+  "flake8-docstrings",
+  "flake8-isort",
+  "pep8-naming",
+]
+format = [
+  "black",
+  "isort",
+]
+type = [
+  "mypy",
+  "django-stubs[compatible-mypy]",
+  "djangorestframework-stubs",
+]
+
 [tool.hatch.build]
 only-include = [
   "resonant_utils",
@@ -77,8 +100,12 @@ combine_as_imports = true
 files = [
   "resonant_utils",
 ]
+check_untyped_defs = true
 show_error_codes = true
 strict = true
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
 mypy_path = [
   "$MYPY_CONFIG_FILE_DIR/stubs",
 ]
