@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 import json
 from typing import Any, TypeVar
+import warnings
 
 from django import template
 
@@ -12,7 +13,7 @@ _VT_co = TypeVar("_VT_co", covariant=True)
 
 
 @register.filter
-def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
+def get_item(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
     """
     Retrieve `value[arg]` from a mapping `value`, where `arg` can be a variable.
 
@@ -26,6 +27,14 @@ def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
         {% endfor %}
     """
     return value.get(arg, None)
+
+
+@register.filter
+def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
+    warnings.warn(
+        'deprecated: use "get_item" instead of "getitem".', DeprecationWarning, stacklevel=2
+    )
+    return get_item(value, arg)
 
 
 @register.filter
