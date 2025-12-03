@@ -462,25 +462,25 @@ provides-extras = ["allauth", "minio-storage", "rest-framework", "s3-storage"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "tox" },
-    { name = "tox-uv" },
+    { name = "tox", specifier = "==4.32.0" },
+    { name = "tox-uv", specifier = "==1.29.0" },
 ]
 format = [
-    { name = "black" },
-    { name = "isort" },
+    { name = "black", specifier = "==25.9.0" },
+    { name = "isort", specifier = "==7.0.0" },
 ]
 lint = [
-    { name = "flake8" },
-    { name = "flake8-black" },
-    { name = "flake8-bugbear" },
-    { name = "flake8-docstrings" },
-    { name = "flake8-isort" },
-    { name = "pep8-naming" },
+    { name = "flake8", specifier = "==7.3.0" },
+    { name = "flake8-black", specifier = "==0.4.0" },
+    { name = "flake8-bugbear", specifier = "==25.10.21" },
+    { name = "flake8-docstrings", specifier = "==1.7.0" },
+    { name = "flake8-isort", specifier = "==7.0.0" },
+    { name = "pep8-naming", specifier = "==0.15.1" },
 ]
 type = [
-    { name = "django-stubs", extras = ["compatible-mypy"] },
-    { name = "djangorestframework-stubs" },
-    { name = "mypy" },
+    { name = "django-stubs", extras = ["compatible-mypy"], specifier = "==5.2.7" },
+    { name = "djangorestframework-stubs", specifier = "==3.16.5" },
+    { name = "mypy", specifier = "==1.18.2" },
 ]
 
 [[package]]

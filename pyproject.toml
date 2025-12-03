@@ -56,25 +56,25 @@ s3_storage = [
 
 [dependency-groups]
 dev = [
-  "tox",
-  "tox-uv",
+  "tox==4.32.0",
+  "tox-uv==1.29.0",
 ]
 lint = [
-  "flake8",
-  "flake8-black",
-  "flake8-bugbear",
-  "flake8-docstrings",
-  "flake8-isort",
-  "pep8-naming",
+  "flake8==7.3.0",
+  "flake8-black==0.4.0",
+  "flake8-bugbear==25.10.21",
+  "flake8-docstrings==1.7.0",
+  "flake8-isort==7.0.0",
+  "pep8-naming==0.15.1",
 ]
 format = [
-  "black",
-  "isort",
+  "black==25.9.0",
+  "isort==7.0.0",
 ]
 type = [
-  "mypy",
-  "django-stubs[compatible-mypy]",
-  "djangorestframework-stubs",
+  "mypy==1.18.2",
+  "django-stubs[compatible-mypy]==5.2.7",
+  "djangorestframework-stubs==3.16.5",
 ]
 
 [tool.hatch.build]
