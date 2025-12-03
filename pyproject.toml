@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "django-resonant-utils"
 description = "Django utilities for data management applications."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE"]
 maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
@@ -21,18 +21,18 @@ classifiers = [
   "Framework :: Django",
   "Framework :: Django :: 5",
   "Framework :: Django :: 5.2",
+  "Framework :: Django :: 6",
+  "Framework :: Django :: 6.0",
   "Intended Audience :: Developers",
   "Operating System :: OS Independent",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
 dependencies = [
-  "django>=4.2",
+  "django>=5.2",
 ]
 dynamic = ["version"]
 
@@ -78,7 +78,7 @@ source = "vcs"
 
 [tool.black]
 line-length = 100
-target-version = ["py310"]
+target-version = ["py312"]
 
 [tool.ruff]
 line-length = 100
@@ -119,8 +119,6 @@ ignore = [
   "TRY003", # raise-vanilla-args
 
   # Project-specific
-  # https://github.com/astral-sh/ruff/issues/22883
-  "UP046", # non-pep695-generic-class
 ]
 
 [tool.ruff.lint.per-file-ignores]
