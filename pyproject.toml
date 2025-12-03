@@ -62,18 +62,18 @@ dev = [
 lint = [
   "flake8==7.3.0",
   "flake8-black==0.4.0",
-  "flake8-bugbear==25.10.21",
+  "flake8-bugbear==25.11.29",
   "flake8-docstrings==1.7.0",
   "flake8-isort==7.0.0",
   "pep8-naming==0.15.1",
 ]
 format = [
-  "black==25.9.0",
+  "black==25.11.0",
   "isort==7.0.0",
 ]
 type = [
-  "mypy==1.18.2",
-  "django-stubs[compatible-mypy]==5.2.7",
+  "mypy==1.19.0",
+  "django-stubs[compatible-mypy]==5.2.8",
   "djangorestframework-stubs==3.16.5",
 ]
 
