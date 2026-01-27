@@ -1,13 +1,10 @@
 from __future__ import annotations
 
 import itertools
-from typing import TYPE_CHECKING, Generic, TypeVar
+from typing import TYPE_CHECKING
 
 from django.contrib import admin
 from django.db.models import Model
-
-_ChildModelT = TypeVar("_ChildModelT", bound=Model)
-_ParentModelT = TypeVar("_ParentModelT", bound=Model)
 
 # https://mypy.readthedocs.io/en/latest/runtime_troubles.html#using-classes-that-are-generic-in-stubs-but-not-at-runtime
 if TYPE_CHECKING:
@@ -16,29 +13,35 @@ if TYPE_CHECKING:
     from django.contrib.admin.options import InlineModelAdmin
     from django.http import HttpRequest
 
-    class _InlineMixin(InlineModelAdmin[_ChildModelT, _ParentModelT]):
+    class _InlineMixin[ChildModelT: Model, ParentModelT: Model](
+        InlineModelAdmin[ChildModelT, ParentModelT]
+    ):
         pass
 
-    class _TabularInline(admin.TabularInline[_ChildModelT, _ParentModelT]):
+    class _TabularInline[ChildModelT: Model, ParentModelT: Model](
+        admin.TabularInline[ChildModelT, ParentModelT]
+    ):
         pass
 
 else:
 
-    class _InlineMixin(Generic[_ChildModelT, _ParentModelT]):
+    class _InlineMixin[ChildModelT: Model, ParentModelT: Model]:
         pass
 
-    class _TabularInline(admin.TabularInline, Generic[_ChildModelT, _ParentModelT]):
+    class _TabularInline[ChildModelT: Model, ParentModelT: Model](admin.TabularInline):
         pass
 
 
-class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
+class ReadonlyInlineMixin[ChildModelT: Model, ParentModelT: Model](
+    _InlineMixin[ChildModelT, ParentModelT]
+):
     can_delete = False
     show_change_link = True
-    view_on_site: bool | Callable[[_ChildModelT], str] = False
+    view_on_site: bool | Callable[[ChildModelT], str] = False
     extra = 0
 
     def get_readonly_fields(
-        self, request: HttpRequest, obj: _ChildModelT | None = None
+        self, request: HttpRequest, obj: ChildModelT | None = None
     ) -> list[str]:
         if self.fields is None:
             return []
@@ -51,12 +54,12 @@ class ReadonlyInlineMixin(_InlineMixin[_ChildModelT, _ParentModelT]):
             )
         )
 
-    def has_add_permission(self, request: HttpRequest, obj: _ParentModelT | None = None) -> bool:
+    def has_add_permission(self, request: HttpRequest, obj: ParentModelT | None = None) -> bool:
         return False
 
 
-class ReadonlyTabularInline(
-    ReadonlyInlineMixin[_ChildModelT, _ParentModelT],
-    _TabularInline[_ChildModelT, _ParentModelT],
+class ReadonlyTabularInline[ChildModelT: Model, ParentModelT: Model](
+    ReadonlyInlineMixin[ChildModelT, ParentModelT],
+    _TabularInline[ChildModelT, ParentModelT],
 ):
     pass
