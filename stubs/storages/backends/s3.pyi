@@ -1,4 +1,4 @@
-from typing import Any, Optional
+from typing import Any
 
 from django.utils.deconstruct import deconstructible
 from storages.base import BaseStorage
@@ -9,7 +9,7 @@ class S3Storage(CompressStorageMixin, BaseStorage):
     def url(  # type: ignore[override]
         self,
         name: str,
-        parameters: Optional[dict[str, Any]] = None,
-        expire: Optional[int] = None,
-        http_method: Optional[str] = None,
+        parameters: dict[str, Any] | None = None,
+        expire: int | None = None,
+        http_method: str | None = None,
     ) -> str: ...

@@ -1,13 +1,17 @@
-from collections.abc import Sequence
-import json
-from typing import Any, TypeVar
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Manager, Model, QuerySet
 from django.utils.translation import gettext_lazy as _
 
-_T = TypeVar("_T", bound=Model, covariant=True)
+if TYPE_CHECKING:
+    from collections.abc import Sequence
+    import json
+
+_T_co = TypeVar("_T_co", bound=Model, covariant=True)
 
 
 class JSONObjectField(models.JSONField):
@@ -52,7 +56,7 @@ class JSONObjectField(models.JSONField):
         return name, path, args, kwargs
 
 
-class SelectRelatedManager(Manager[_T]):
+class SelectRelatedManager(Manager[_T_co]):
     """
     A Manager which always follows specified foreign-key relationships.
 
@@ -71,16 +75,16 @@ class SelectRelatedManager(Manager[_T]):
         self.related_fields: list[str] = list(related_fields)
         super().__init__()
 
-    def get_queryset(self) -> QuerySet[_T]:
+    def get_queryset(self) -> QuerySet[_T_co]:
         return super().get_queryset().select_related(*self.related_fields)
 
 
-class DeferredFieldsManager(Manager[_T]):
+class DeferredFieldsManager(Manager[_T_co]):
     """A Manager which defers loading specified fields within fetched Models."""
 
     def __init__(self, *deferred_fields: str) -> None:
         self.deferred_fields = deferred_fields
         super().__init__()
 
-    def get_queryset(self) -> QuerySet[_T]:
+    def get_queryset(self) -> QuerySet[_T_co]:
         return super().get_queryset().defer(*self.deferred_fields)

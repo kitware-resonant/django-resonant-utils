@@ -1,6 +1,11 @@
-from datetime import timedelta
+from __future__ import annotations
 
-from django.core.files.storage import Storage
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from datetime import timedelta
+
+    from django.core.files.storage import Storage
 
 try:
     from storages.backends.s3 import S3Storage
