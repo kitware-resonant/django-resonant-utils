@@ -1,7 +1,13 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 from django import forms
-from django.contrib.auth.models import AbstractUser
-from django.http import HttpRequest
 from django.utils.translation import gettext_lazy as _
+
+if TYPE_CHECKING:
+    from django.contrib.auth.models import AbstractUser
+    from django.http import HttpRequest
 
 
 # Django-Allauth further inherits from this form, and adds the typical "username", "email", etc.
