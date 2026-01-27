@@ -119,6 +119,8 @@ ignore = [
   "TRY003", # raise-vanilla-args
 
   # Project-specific
+  # https://github.com/astral-sh/ruff/issues/22883
+  "UP046", # non-pep695-generic-class
 ]
 
 [tool.ruff.lint.per-file-ignores]
