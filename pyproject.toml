@@ -56,16 +56,16 @@ s3_storage = [
 
 [dependency-groups]
 dev = [
-  "tox==4.32.0",
+  "tox==4.34.1",
   "tox-uv==1.29.0",
 ]
 lint = [
   "ruff==0.14.14",
 ]
 type = [
-  "mypy==1.19.0",
-  "django-stubs[compatible-mypy]==5.2.8",
-  "djangorestframework-stubs==3.16.5",
+  "mypy==1.19.1",
+  "django-stubs[compatible-mypy]==5.2.9",
+  "djangorestframework-stubs==3.16.7",
 ]
 
 [tool.hatch.build]
