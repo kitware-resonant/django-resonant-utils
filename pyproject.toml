@@ -76,13 +76,8 @@ only-include = [
 [tool.hatch.version]
 source = "vcs"
 
-[tool.black]
-line-length = 100
-target-version = ["py312"]
-
 [tool.ruff]
 line-length = 100
-target-version = "py313"
 
 [tool.ruff.lint]
 select = ["ALL"]
@@ -125,6 +120,7 @@ ignore = [
 "**/tests/**" = [
   "DJ007", # django-all-with-model-form
   "DJ008", # django-model-without-dunder-str
+  "INP001", # implicit-namespace-package
   "PLR0913", # too-many-arguments
   "PLR2004", # magic-value-comparison
   "S", # flake8-bandit
