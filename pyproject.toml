@@ -60,12 +60,12 @@ dev = [
   "tox-uv==1.29.0",
 ]
 lint = [
-  "ruff==0.14.14",
+  "ruff==0.15.0",
 ]
 type = [
   "mypy==1.19.1",
   "django-stubs[compatible-mypy]==5.2.9",
-  "djangorestframework-stubs==3.16.7",
+  "djangorestframework-stubs==3.16.8",
 ]
 
 [tool.hatch.build]
