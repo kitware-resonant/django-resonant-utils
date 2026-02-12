@@ -44,11 +44,15 @@ Repository = "https://github.com/kitware-resonant/django-resonant-utils"
 allauth = [
   "django-allauth",
 ]
-rest_framework = [
-  "djangorestframework",
-]
 minio_storage = [
   "django-minio-storage",
+]
+ninja = [
+  "django-ninja",
+  "django-oauth-toolkit",
+]
+rest_framework = [
+  "djangorestframework",
 ]
 s3_storage = [
   "django-storages[s3]>=1.14",
@@ -152,3 +156,9 @@ warn_unused_ignores = true
 mypy_path = [
   "$MYPY_CONFIG_FILE_DIR/stubs",
 ]
+
+[[tool.mypy.overrides]]
+module = [
+  "oauth2_provider.*",
+]
+ignore_missing_imports = true
