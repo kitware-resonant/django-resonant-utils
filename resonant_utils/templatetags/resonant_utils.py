@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 from typing import TYPE_CHECKING, Any
-import warnings
 
 from django import template
 
@@ -27,14 +26,6 @@ def get_item[Key, Value](value: Mapping[Key, Value], arg: Key) -> Value | None:
         {% endfor %}
     """
     return value.get(arg, None)
-
-
-@register.filter
-def getitem[Key, Value](value: Mapping[Key, Value], arg: Key) -> Value | None:
-    warnings.warn(
-        'deprecated: use "get_item" instead of "getitem".', DeprecationWarning, stacklevel=2
-    )
-    return get_item(value, arg)
 
 
 @register.filter
