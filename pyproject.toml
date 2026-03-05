@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling", "hatch-vcs"]
+requires = ["hatchling>=1,<2", "hatch-vcs>=0.4,<1"]
 build-backend = "hatchling.build"
 
 [project]
@@ -42,17 +42,17 @@ Repository = "https://github.com/kitware-resonant/django-resonant-utils"
 
 [project.optional-dependencies]
 allauth = [
-  "django-allauth",
+  "django-allauth>=65",
 ]
 minio_storage = [
-  "django-minio-storage",
+  "django-minio-storage>=0",
 ]
 ninja = [
-  "django-ninja",
-  "django-oauth-toolkit",
+  "django-ninja>=1",
+  "django-oauth-toolkit>=3",
 ]
 rest_framework = [
-  "djangorestframework",
+  "djangorestframework>=3",
 ]
 s3_storage = [
   "django-storages[s3]>=1.14",

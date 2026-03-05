@@ -417,12 +417,12 @@ type = [
 [package.metadata]
 requires-dist = [
     { name = "django", specifier = ">=5.2" },
-    { name = "django-allauth", marker = "extra == 'allauth'" },
-    { name = "django-minio-storage", marker = "extra == 'minio-storage'" },
-    { name = "django-ninja", marker = "extra == 'ninja'" },
-    { name = "django-oauth-toolkit", marker = "extra == 'ninja'" },
+    { name = "django-allauth", marker = "extra == 'allauth'", specifier = ">=65" },
+    { name = "django-minio-storage", marker = "extra == 'minio-storage'", specifier = ">=0" },
+    { name = "django-ninja", marker = "extra == 'ninja'", specifier = ">=1" },
+    { name = "django-oauth-toolkit", marker = "extra == 'ninja'", specifier = ">=3" },
     { name = "django-storages", extras = ["s3"], marker = "extra == 's3-storage'", specifier = ">=1.14" },
-    { name = "djangorestframework", marker = "extra == 'rest-framework'" },
+    { name = "djangorestframework", marker = "extra == 'rest-framework'", specifier = ">=3" },
 ]
 provides-extras = ["allauth", "minio-storage", "ninja", "rest-framework", "s3-storage"]
 
