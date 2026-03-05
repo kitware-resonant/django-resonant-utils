@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 import json
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any
 import warnings
 
 from django import template
@@ -12,12 +12,8 @@ if TYPE_CHECKING:
 register = template.Library()
 
 
-_KT = TypeVar("_KT")
-_VT_co = TypeVar("_VT_co", covariant=True)
-
-
 @register.filter
-def get_item(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
+def get_item[Key, Value](value: Mapping[Key, Value], arg: Key) -> Value | None:
     """
     Retrieve `value[arg]` from a mapping `value`, where `arg` can be a variable.
 
@@ -34,7 +30,7 @@ def get_item(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
 
 
 @register.filter
-def getitem(value: Mapping[_KT, _VT_co], arg: _KT) -> _VT_co | None:
+def getitem[Key, Value](value: Mapping[Key, Value], arg: Key) -> Value | None:
     warnings.warn(
         'deprecated: use "get_item" instead of "getitem".', DeprecationWarning, stacklevel=2
     )
