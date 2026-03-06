@@ -5,3 +5,5 @@ max_python_minor_version: 14
 min_python_minor_version: 12
 project_slug: django-resonant-utils
 python_package_name: resonant_utils
+
+#copier updated
