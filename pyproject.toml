@@ -67,8 +67,8 @@ lint = [
   "ruff==0.15.11",
 ]
 type = [
-  "mypy==1.20.1",
-  "django-stubs[compatible-mypy]==6.0.2",
+  "mypy==1.20.2",
+  "django-stubs[compatible-mypy]==6.0.3",
   "djangorestframework-stubs==3.16.9",
 ]
 
