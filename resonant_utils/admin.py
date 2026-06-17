@@ -41,7 +41,7 @@ class ReadonlyInlineMixin[ChildModelT: Model, ParentModelT: Model](
     extra = 0
 
     def get_readonly_fields(
-        self, request: HttpRequest, obj: ChildModelT | None = None
+        self, request: HttpRequest, obj: ParentModelT | None = None
     ) -> list[str]:
         if self.fields is None:
             return []
