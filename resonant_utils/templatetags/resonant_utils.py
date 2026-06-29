@@ -7,6 +7,7 @@ from django import template
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
+    from datetime import datetime
 
 register = template.Library()
 
@@ -44,3 +45,17 @@ def pretty_json(value: Any, indent: int | None = None) -> str:
     <pre>{{ my_object|pretty_json:4 }}</pre>
     """
     return json.dumps(value, indent=indent)
+
+
+@register.inclusion_tag("localtime.html")
+def localtime(value: datetime) -> dict[str, datetime]:
+    """
+    Include the datetime as a local-time formatted value.
+
+    Sample usage::
+    {% load resonant_utils %}
+    <pre>{% localtime object.creation_time %}</pre>
+    """
+    return {
+        "dt": value,
+    }
