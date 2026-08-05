@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 from unittest.mock import Mock
 
 from django.http import HttpRequest, QueryDict
@@ -74,13 +74,19 @@ class TestClient(UpstreamTestClient):
         if files is not None:
             request.FILES = files
 
+        # django-stubs types "request.GET"/"request.POST" as immutable, which holds for a
+        # fully-constructed request but not for one from "HttpRequest.__init__"
         if isinstance(data, QueryDict):
-            request.POST = data
+            request.POST = data  # type: ignore[assignment]
         elif isinstance(data, (str, bytes)):
             request._body = data.encode() if isinstance(data, str) else data
         elif data:
+            # Cast to the mutable base type, so mutating methods resolve to the base-class ones
+            # returning "None"; the immutable overrides return "NoReturn", which would make mypy
+            # consider every following statement unreachable and silently skip type checking it.
+            post = cast("QueryDict", request.POST)
             for k, v in data.items():
-                request.POST[k] = v
+                post[k] = v
 
         query_string = ""
         query_params = request_params.pop("query_params", None)
@@ -90,12 +96,14 @@ class TestClient(UpstreamTestClient):
             path, query_string = path.split("?", maxsplit=1)
             request.GET = QueryDict(query_string)
         elif query_params is not None:
+            # Cast for the same reason as "request.POST" above
+            get = cast("QueryDict", request.GET)
             for k, v in query_params.items():
                 if isinstance(v, list):
                     for item in v:
-                        request.GET.appendlist(k, item)
+                        get.appendlist(k, item)
                 else:
-                    request.GET[k] = v
+                    get[k] = v
             query_string = request.GET.urlencode()
         request.path = path
         # If "settings.FORCE_SCRIPT_NAME" is set, "request.path_info" ought
