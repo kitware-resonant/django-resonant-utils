@@ -31,7 +31,7 @@ class FullNameSignupForm(forms.Form):
         max_length=150,
         label=_("Last name"),
         widget=forms.TextInput(
-            attrs={"placeholder": _("Last name"), "auto complete": "family-name"}
+            attrs={"placeholder": _("Last name"), "autocomplete": "family-name"}
         ),
     )
 
