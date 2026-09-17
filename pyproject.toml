@@ -50,7 +50,6 @@ minio_storage = [
 ]
 ninja = [
   "django-ninja>=1",
-  "django-oauth-toolkit>=3",
 ]
 rest_framework = [
   "djangorestframework>=3",
@@ -181,9 +180,3 @@ warn_unused_ignores = true
 mypy_path = [
   "$MYPY_CONFIG_FILE_DIR/stubs",
 ]
-
-[[tool.mypy.overrides]]
-module = [
-  "oauth2_provider.*",
-]
-ignore_missing_imports = true
