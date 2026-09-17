@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import TYPE_CHECKING, Any, TypeVar
+import warnings
 
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -68,10 +69,19 @@ class SelectRelatedManager(Manager[_T_co]):
         objects = SelectRelatedManager('foreign_thing')
 
     Passing no arguments makes this follow all the Model's non-null
-    foreign-key relationships.
+    foreign-key relationships. This is deprecated, as Django 6.1 deprecates
+    calling `QuerySet.select_related` with no arguments; specify the
+    related fields explicitly instead.
     """
 
     def __init__(self, *related_fields: str) -> None:
+        if not related_fields:
+            warnings.warn(
+                "Passing no arguments to SelectRelatedManager is deprecated; "
+                "specify the related fields explicitly.",
+                DeprecationWarning,
+                stacklevel=2,
+            )
         self.related_fields: list[str] = list(related_fields)
         super().__init__()
 
