@@ -171,12 +171,9 @@ convention = "pep257"
 files = [
   "resonant_utils",
 ]
-check_untyped_defs = true
-show_error_codes = true
 strict = true
-warn_redundant_casts = true
 warn_unused_configs = true
-warn_unused_ignores = true
+enable_error_code = ["exhaustive-match"]
 mypy_path = [
   "$MYPY_CONFIG_FILE_DIR/stubs",
 ]
