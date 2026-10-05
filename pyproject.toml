@@ -60,11 +60,11 @@ s3_storage = [
 
 [dependency-groups]
 dev = [
-  "tox==4.64.2",
-  "tox-uv==1.36.0",
+  "tox==4.64.7",
+  "tox-uv==1.36.1",
 ]
 lint = [
-  "ruff==0.16.9",
+  "ruff==0.16.10",
 ]
 type = [
   "mypy==2.3.1",
