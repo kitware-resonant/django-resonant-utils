@@ -7,14 +7,16 @@ from django.http import HttpRequest, QueryDict
 from ninja.testing import TestClient as UpstreamTestClient
 
 
-# TODO: Remove once https://github.com/vitalik/django-ninja/pull/1680 is released.
+# Override "_build_request" with the fixes from https://github.com/vitalik/django-ninja/pull/1680,
+# which upstream has not merged. Otherwise, keep this in sync with the upstream implementation;
+# this currently tracks django-ninja 1.7.1.
 # ruff: disable[C901,PLR0912,SLF001]
 class TestClient(UpstreamTestClient):
-    def _build_request(  # type: ignore[override]
+    def _build_request(
         self,
         method: str,
         path: str,
-        data: dict,  # type: ignore[type-arg]
+        data: dict[str, Any],
         request_params: dict[str, Any],
     ) -> HttpRequest:
         request = HttpRequest()
@@ -30,6 +32,13 @@ class TestClient(UpstreamTestClient):
             request.user.is_authenticated = False
             request.user.is_staff = False
             request.user.is_superuser = False
+
+        request.session = {}  # type: ignore[assignment]
+
+        async def _auser() -> Any:
+            return request.user
+
+        request.auser = _auser
 
         files = request_params.pop("FILES", None)
         if files is not None:

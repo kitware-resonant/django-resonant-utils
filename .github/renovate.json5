@@ -3,11 +3,4 @@
   extends: [
     'github>kitware-resonant/.github:renovate-library-core.json5',
   ],
-
-  packageRules: [
-    {
-      matchPackageNames: ['django-ninja'],
-      groupName: 'django-ninja',
-    },
-  ],
 }
